@@ -29,6 +29,10 @@ function makeRequestByPlayer(playerTag) {
         })
         receiving.on('end', () => {
           let playerData = JSON.parse(infoComming);
+          // Reject if accessDenied. 'Reason' object property when invalid authorization
+          if(playerData.hasOwnProperty('reason')) {
+            return reject(playerData);
+          }
           resolve(playerData);
         })
       })
