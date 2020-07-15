@@ -7,10 +7,17 @@ const app = express();
 const port = process.env.PORT || 5051;
 
 app.get('/', (req, res) => {
-  res.send('Hey! I am sending!');
+  dailyData()
+    .then( data => {
+      res.send(data);
+    })
+    .catch( error => {
+      res.send(error);
+    })
+  
 })
 
-dailyData();
+
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

@@ -4,12 +4,16 @@ function dailyData() {
   console.log('Daily data function activated.')
 
   // TODO: Get list of players susbcribed to get daily data.
+  
+  return new Promise((resolve, reject) => {
+    getPlayerInfo()
+      .then( playerInfo => {
+        resolve(playerInfo);
+      })
+      .catch( error => {return reject(error)} )
 
-  getPlayerInfo()
-  .then( playerInfo => {
-    console.log(playerInfo);
   })
-  .catch( error => console.log(error) )
+
 
 }
 
