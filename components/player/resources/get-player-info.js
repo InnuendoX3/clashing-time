@@ -22,6 +22,3 @@ function getPlayerInfo() {
 }
 
 module.exports = getPlayerInfo;
-
-let date = new Date().toString()
-console.log(date)
