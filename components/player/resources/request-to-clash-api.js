@@ -9,7 +9,7 @@ const options = {
   }
 }
 
-const API_activated = false;
+const API_activated = true;
 
 /** 
  *  Make request to Royal Clash API by playerTag.
