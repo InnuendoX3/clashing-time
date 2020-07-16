@@ -28,9 +28,8 @@ function getRightUrlOptions(usingProxy, playerTag) {
      * Options/variables for IPBurger Proxy needed on Heroku for get an static IP
      * as it says on https://devcenter.heroku.com/articles/ipburger
      */
-    const proxyUrl = url.parse(process.env.IPB_HTTP) //Add it here as env ???
-    console.log(proxyUrl)
-    console.log(developingUrlOptions)
+    const proxyUrl = url.parse(process.env.FIXIE_URL) //Add it here as env ???
+    console.log('proxyUrl', proxyUrl)
     const viaProxyOptions = {
       host: proxyUrl.hostname,
       port: proxyUrl.port,
@@ -41,15 +40,8 @@ function getRightUrlOptions(usingProxy, playerTag) {
         'authorization': token,
       }
     }
-
-    process.on('uncaughtException', function (err) {
-      console.log(err);
-  }); 
-
-    console.log('logiing',viaProxyOptions);
+    console.log('Final URL options', viaProxyOptions)
     return viaProxyOptions;
-
-
 
   } else {
     return developingUrlOptions;
