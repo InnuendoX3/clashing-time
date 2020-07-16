@@ -1,35 +1,36 @@
 const https = require('https');
-
-const url = 'https://api.clashroyale.com/v1/players/';
-const preTag = '%23'; // Replaces the # of player's tag on URL 
-const token = `Bearer ${process.env.AUTHORIZATION_TOKEN}`;
-const options = {
-  headers: {
-    'authorization': token,
-  }
-}
+const url = require('url');
 
 const API_activated = true;
+
+const requestUrl = url.parse('https://api.clashroyale.com/v1/players/');
+const preTag = '%23'; // Replaces the # of player's tag on URL 
+const token = `Bearer ${process.env.AUTHORIZATION_TOKEN}`;
+
+requestUrl.headers = {
+  'authorization': token,
+}
 
 /** 
  *  Make request to Royal Clash API by playerTag.
  *  Returns big object with ALL player's info sent by Royale Clash API
  */
 function makeRequestByPlayer(playerTag) {
-  const wholeurl = url.concat(preTag, playerTag);
+  requestUrl.path = requestUrl.path.concat(preTag, playerTag);
 
   // --  Preventing lot of API requests when testing
   if (API_activated) {
 
     return new Promise((resolve, reject) => {
-      https.get(wholeurl, options, receiving => {
+      https.get(requestUrl, receiving => {
+        console.log(requestUrl)
         let infoComming = '';
         receiving.on('data', chunk => {
           infoComming += chunk;
         })
         receiving.on('end', () => {
           let playerData = JSON.parse(infoComming);
-          // Reject if accessDenied. 'Reason' object property when invalid authorization
+          // Reject if accessDenied. 'Reason' object property when invalid authorization.
           if(playerData.hasOwnProperty('reason')) {
             return reject(playerData);
           }
