@@ -16,6 +16,7 @@ function getPlayerInfo() {
       resolve(relevantPlayerData);
     })
     .catch( error => {
+      console.log(error)
       return reject(error);
     })
   })

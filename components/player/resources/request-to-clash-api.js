@@ -1,29 +1,25 @@
 const https = require('https');
 const url = require('url');
+const getRightUrlOptions = require('./options-to-api')
 
-const API_activated = true;
+const apiActivated = true;
+const usingProxy = true;
 
-const requestUrl = url.parse('https://api.clashroyale.com/v1/players/');
-const preTag = '%23'; // Replaces the # of player's tag on URL 
-const token = `Bearer ${process.env.AUTHORIZATION_TOKEN}`;
-
-requestUrl.headers = {
-  'authorization': token,
-}
 
 /** 
  *  Make request to Royal Clash API by playerTag.
  *  Returns big object with ALL player's info sent by Royale Clash API
  */
 function makeRequestByPlayer(playerTag) {
-  requestUrl.path = requestUrl.path.concat(preTag, playerTag);
+  
+  // if -->  Preventing lot of API requests when testing
+  if (apiActivated) {
 
-  // --  Preventing lot of API requests when testing
-  if (API_activated) {
+    let urlOptions = getRightUrlOptions(usingProxy, playerTag);
+    console.log(urlOptions)
 
     return new Promise((resolve, reject) => {
-      https.get(requestUrl, receiving => {
-        console.log(requestUrl)
+      https.get(urlOptions, receiving => {
         let infoComming = '';
         receiving.on('data', chunk => {
           infoComming += chunk;
@@ -38,7 +34,8 @@ function makeRequestByPlayer(playerTag) {
         })
       })
       .on('error', err => {
-        return reject(error);
+        console.error(err)
+        return reject(err);
       })
     })
 
