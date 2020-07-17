@@ -12,17 +12,19 @@ const url = require('url');
 
 const clashUrl = 'https://api.clashroyale.com/v1/players/';
 const preTag = '%23'; // Replaces the # of player's tag on URL 
-const token = `Bearer ${process.env.AUTHORIZATION_TOKEN}`;
 
 function getRightUrlOptions(usingProxy, playerTag) {
-
+  
   const developingUrlOptions = url.parse(clashUrl.concat(preTag, playerTag));
+  
+  // Token required by RoyaleClash API. Different on each IP that request.  
+  const token = usingProxy ? `Bearer ${process.env.AUTHORIZATION_TOKEN}` : `Bearer ${process.env.AUTHORIZATION__LOCAL_TOKEN}`;
   developingUrlOptions.headers = {
     'authorization': token,
   }
 
   if(usingProxy) {
-    console.log('Prosy estaría activado')
+    console.log('[Warning] Using proxy! Max 500 request monthly')
 
     /**  
      * Options/variables for IPBurger Proxy needed on Heroku for get an static IP
@@ -41,13 +43,13 @@ function getRightUrlOptions(usingProxy, playerTag) {
       }
     }
     console.log('Final URL options', viaProxyOptions)
+    
+    // Returns request options using Fixie proxy. 500 request max per month!
     return viaProxyOptions;
-
   } else {
+    // Returns the request options when developing
     return developingUrlOptions;
   }
-
-
   
 }
 

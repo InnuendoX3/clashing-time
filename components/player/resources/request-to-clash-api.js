@@ -1,4 +1,4 @@
-const https = require('http');
+const http = require('http');
 const url = require('url');
 const getRightUrlOptions = require('./options-to-api')
 
@@ -12,14 +12,14 @@ const usingProxy = true;
  */
 function makeRequestByPlayer(playerTag) {
   
-  // if -->  Preventing lot of API requests when testing
+  // if -->  Preventing lot of API requests when testing db
   if (apiActivated) {
 
     let urlOptions = getRightUrlOptions(usingProxy, playerTag);
     console.log(urlOptions)
 
     return new Promise((resolve, reject) => {
-      https.get(urlOptions, receiving => {
+      http.get(urlOptions, receiving => {
         let infoComming = '';
         receiving.on('data', chunk => {
           infoComming += chunk;
