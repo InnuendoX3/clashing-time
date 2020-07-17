@@ -18,13 +18,13 @@ function getRightUrlOptions(usingProxy, playerTag) {
   const developingUrlOptions = url.parse(clashUrl.concat(preTag, playerTag));
   
   // Token required by RoyaleClash API. Different on each IP that request.  
-  const token = usingProxy ? `Bearer ${process.env.AUTHORIZATION_TOKEN}` : `Bearer ${process.env.AUTHORIZATION__LOCAL_TOKEN}`;
+  const token = usingProxy ? `Bearer ${process.env.AUTHORIZATION_TOKEN}` : `Bearer ${process.env.AUTHORIZATION_LOCAL_TOKEN}`;
   developingUrlOptions.headers = {
     'authorization': token,
   }
 
   if(usingProxy) {
-    console.log('[Warning] Using proxy! Max 500 request monthly')
+    console.log('-- [Warning] -- Using proxy! Max 500 request monthly')
 
     /**  
      * Options/variables for IPBurger Proxy needed on Heroku for get an static IP
@@ -42,12 +42,13 @@ function getRightUrlOptions(usingProxy, playerTag) {
         'authorization': token,
       }
     }
-    console.log('Final URL options', viaProxyOptions)
+    //console.log('Final URL options', viaProxyOptions)
     
     // Returns request options using Fixie proxy. 500 request max per month!
     return viaProxyOptions;
   } else {
     // Returns the request options when developing
+    //console.log('Final URL options for Develompent', developingUrlOptions)
     return developingUrlOptions;
   }
   

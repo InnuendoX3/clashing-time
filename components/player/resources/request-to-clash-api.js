@@ -1,9 +1,9 @@
-const http = require('http');
-const url = require('url');
-const getRightUrlOptions = require('./options-to-api')
+const useClashRoyaleApi = process.env.USE_CLASH_ROYALE_API === 'true' ? true : false;
+const useFixieProxy = process.env.USE_FIXIE_PROXY === 'true' ? true : false;
 
-const apiActivated = true;
-const usingProxy = true;
+// Requesting local-directly to Clash API needs HTTPS module but Fixie works with module HTTP
+const http = useFixieProxy ? require('http') : require('https');
+const getRightUrlOptions = require('./options-to-api')
 
 
 /** 
@@ -13,10 +13,9 @@ const usingProxy = true;
 function makeRequestByPlayer(playerTag) {
   
   // if -->  Preventing lot of API requests when testing db
-  if (apiActivated) {
+  if (useClashRoyaleApi) {
 
-    let urlOptions = getRightUrlOptions(usingProxy, playerTag);
-    console.log(urlOptions)
+    let urlOptions = getRightUrlOptions(useFixieProxy, playerTag);
 
     return new Promise((resolve, reject) => {
       http.get(urlOptions, receiving => {
@@ -43,7 +42,7 @@ function makeRequestByPlayer(playerTag) {
 
     return new Promise((resolve, reject) => {
       let noRealInfo = {
-        tag: '#NONE',
+        tag: '#n0n3',
         name: 'Hardcoded Object',
         battleCount: 'Preventing lots of requests when testing',
       };
