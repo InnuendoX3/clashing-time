@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 5051;
 
 dbConnect(process.env.DB_URL);
+app.use(express.json()) // Parse JSON bodies / No need body-parser module
 allRoutes(app);
 
 /* app.get('/', (req, res) => {

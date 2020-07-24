@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const daySchema = mongoose.Schema({
-  tag: String,
+  tag: {
+    type: String,
+    required: true
+  },
   user: String,
   yesterdayBattleCount: Number,
   currentDaybattleCount: Number,
