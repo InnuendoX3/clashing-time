@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  name: String, 
+  name: String,
+  subscribed: Date,
 })
 
 const UserModel = mongoose.model('User', userSchema);

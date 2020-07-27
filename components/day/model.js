@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const daySchema = mongoose.Schema({
-  tag: {
-    type: String,
-    required: true
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
   },
-  user: String,
   yesterdayBattleCount: Number,
   currentDaybattleCount: Number,
   date: Date,
