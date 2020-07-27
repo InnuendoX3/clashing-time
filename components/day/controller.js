@@ -16,18 +16,7 @@ async function setBattleDay(dayInfo) {
     date: Date.now()
   }
 
-  console.log('Intentando usar Async Await 2');
-
   return await dbSaveBattleDay(dayInfoToSave);
-/*   return new Promise((resolve, reject) => {
-    dbSaveBattleDay(dayInfoToSave)
-      .then( dataFromDB => {
-        resolve(dataFromDB);
-      })
-      .catch( err => {
-        return reject(err);
-      })
-  }) */
 }
 
 module.exports = {

@@ -11,7 +11,6 @@ const getRightUrlOptions = require('./options-to-api')
  *  Returns big object with ALL player's info sent by Royale Clash API
  */
 function makeRequestByPlayer(playerTag) {
-  
   // if -->  Preventing lot of API requests when testing db
   if (useClashRoyaleApi) {
 

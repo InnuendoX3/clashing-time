@@ -1,7 +1,7 @@
 const makeRequestByPlayer = require('./request-to-clash-api');
-const playerTag = '8CRRY8J02';
+//const playerTag = '8CRRY8J02';
 
-function getPlayerInfo() {
+function getPlayerInfo(playerTag) {
 
   return new Promise((resolve, reject) => {
     makeRequestByPlayer(playerTag)

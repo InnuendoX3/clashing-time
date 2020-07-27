@@ -12,8 +12,10 @@ dbConnect(process.env.DB_URL);
 app.use(express.json()) // Parse JSON bodies / No need body-parser module
 allRoutes(app);
 
-/* app.get('/', (req, res) => {
-  dailyData()
+
+/* const playerTag = '800000000';
+app.get('/', (req, res) => {
+  dailyData(playerTag)
     .then( dataFromClash => {
       //controlDataAndSave(dataFromClash) // TODO
       res.send(dataFromClash);
