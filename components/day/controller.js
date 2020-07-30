@@ -1,5 +1,6 @@
 const {dbGetAllDays, dbSaveBattleDay} = require('./db');
 
+
 async function getAllDays() {
   const allDaysData = await dbGetAllDays();
   console.log('allDaysData es:')
@@ -12,7 +13,7 @@ async function setBattleDay(dayInfo) {
     tag: dayInfo.tag,
     user: dayInfo.user,
     yesterdayBattleCount: dayInfo.yesterdayBattleCount,
-    currentDaybattleCount: dayInfo.currentDaybattleCount,
+    currentBattleCount: dayInfo.currentBattleCount,
     date: Date.now()
   }
 

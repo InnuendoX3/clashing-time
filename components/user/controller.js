@@ -1,7 +1,24 @@
 const { fixTagGetUserInfo } = require('../../resources/control-functions');
-const { dbSaveUser } = require('./db');
+const { dbSaveUser, dbGetUsers } = require('./db');
 const { dbSaveBattleDay } = require('../day/db');
 
+function getUserByTag(userTag) {
+  const usersito = {
+    nombre: 'Testeando',
+    apellido: 'Rendering',
+    tag: userTag,
+  }
+  return new Promise((resolve, reject) => {
+    console.log('usersito', usersito)
+    resolve(usersito)
+  })
+}
+
+async function getUsersTagList() {
+  const userList = await dbGetUsers()
+  const usersTagList = userList.map( user => user.tag )
+  return usersTagList;
+}
 
 async function subscribeNewUser(userTag) {
   const dataReturned = await fixTagGetUserInfo(userTag)
@@ -15,11 +32,11 @@ async function subscribeNewUser(userTag) {
   const userSaved = await dbSaveUser(toSaveOnUser)
   console.log('userSaved', userSaved);
   
-  /** Ser first battleDay */
+  /** Set first currentBattleDay */
   const toSaveOnBattleDay = {
     user: userSaved._id,
     yesterdayBattleCount: 0,
-    currentDaybattleCount: dataReturned.battleCount,
+    currentBattleCount: dataReturned.battleCount,
     date: Date.now(),
   }
   const battleDaySaved = await dbSaveBattleDay(toSaveOnBattleDay)
@@ -29,5 +46,7 @@ async function subscribeNewUser(userTag) {
 }
 
 module.exports = {
+  controlGetUserByTag: getUserByTag,
+  controlGetUsersTagList: getUsersTagList,
   controlSubscribeNewUser: subscribeNewUser,
 }

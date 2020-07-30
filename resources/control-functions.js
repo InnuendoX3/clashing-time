@@ -1,4 +1,4 @@
-const getPlayerInfo = require("./get-player-info");
+const getPlayerInfo = require("./to-clash-api/get-player-info");
 //tag = "#8cRRY8J02"
 
 /** 
