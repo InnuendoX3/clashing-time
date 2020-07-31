@@ -1,4 +1,5 @@
 const DayModel = require('./model');
+const { response } = require('express');
 
 async function getAllDays() {
   return await DayModel.find();
@@ -7,6 +8,14 @@ async function getAllDays() {
       .then(data => resolve(data))
       .catch( err => reject(err))
   }) */
+}
+
+async function getLastBattleCount(userID) {
+  const responseFromDb = await DayModel
+    .find({"user": userID},{"currentBattleCount": 1})
+    .sort({"_id": -1})
+    .limit(1);
+  return responseFromDb;
 }
 
 async function saveBattleDay(day) {
@@ -22,6 +31,7 @@ async function saveBattleDay(day) {
 
 module.exports = {
   dbGetAllDays: getAllDays,
+  dbGetLastBattleCount: getLastBattleCount,
   dbSaveBattleDay: saveBattleDay,
 };
 

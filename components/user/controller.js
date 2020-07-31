@@ -14,10 +14,15 @@ function getUserByTag(userTag) {
   })
 }
 
-async function getUsersTagList() {
+async function getUsersTagIDList() {
   const userList = await dbGetUsers()
-  const usersTagList = userList.map( user => user.tag )
-  return usersTagList;
+  const usersTagIDList = userList.map( user => {
+    return {
+      id: user._id,
+      tag: user.tag
+    }
+  })
+  return usersTagIDList;
 }
 
 async function subscribeNewUser(userTag) {
@@ -47,6 +52,6 @@ async function subscribeNewUser(userTag) {
 
 module.exports = {
   controlGetUserByTag: getUserByTag,
-  controlGetUsersTagList: getUsersTagList,
+  controlGetUsersTagIDList: getUsersTagIDList,
   controlSubscribeNewUser: subscribeNewUser,
 }

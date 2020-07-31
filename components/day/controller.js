@@ -1,4 +1,4 @@
-const {dbGetAllDays, dbSaveBattleDay} = require('./db');
+const {dbGetAllDays, dbGetLastBattleCount, dbSaveBattleDay} = require('./db');
 
 
 async function getAllDays() {
@@ -8,19 +8,27 @@ async function getAllDays() {
   return allDaysData;
 }
 
+async function getLastBattleCount(userID) {
+  // Recieve an array from DB and returns just the battleCount number.
+  const responseFromDb = await dbGetLastBattleCount(userID)
+  const lastBattleCount = responseFromDb[0].currentBattleCount;
+  return lastBattleCount;
+}
+
 async function setBattleDay(dayInfo) {
-  const dayInfoToSave = {
-    tag: dayInfo.tag,
+
+  const toSaveOnBattleDay = {
     user: dayInfo.user,
     yesterdayBattleCount: dayInfo.yesterdayBattleCount,
     currentBattleCount: dayInfo.currentBattleCount,
-    date: Date.now()
+    date: Date.now(),
   }
 
-  return await dbSaveBattleDay(dayInfoToSave);
+  return await dbSaveBattleDay(toSaveOnBattleDay);
 }
 
 module.exports = {
   controlGetAllDays: getAllDays,
+  controlgetLastBattleCount: getLastBattleCount,
   controlSetBattleDay: setBattleDay,
 }
