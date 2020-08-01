@@ -1,7 +1,6 @@
-const getPlayerInfo = require('../../resources/to-clash-api/get-player-info');
-const { controlGetUsersTagIDList }  = require('../user/controller');
-const { controlgetLastBattleCount, controlSetBattleDay } = require('./controller');
-const { fixTagGetUserInfo } = require('../../resources/control-functions');
+const { controlGetUsersTagIDList }  = require('../components/user/controller');
+const { controlgetLastBattleCount, controlSetBattleDay } = require('../components/day/controller');
+const { fixTagGetUserInfo } = require('./control-functions');
 
 async function dailyData() {
   console.log('Daily data function activated.')

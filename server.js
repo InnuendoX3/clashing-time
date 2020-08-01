@@ -4,7 +4,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const dbConnect = require('./db');
 const allRoutes = require('./network/all-routes');
-const dailyData = require('./components/day/daily-data');
+const dailyData = require('./resources/daily-data');
 
 const app = express();
 const port = process.env.PORT || 5051;
