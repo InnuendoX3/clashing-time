@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   controlSetBattleDay(req.body)
     .then( data => {
-      console.log(data)
       res.send(data)
     })
     .catch( err => {

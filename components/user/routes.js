@@ -7,7 +7,6 @@ const {controlSubscribeNewUser, controlGetUserByTag} = require('./controller');
 router.get('/', (req, res) => {
   controlGetUserByTag(req.query.tag)
     .then(data => {
-      console.log(data)
       res.render('user.ejs', data)
     })
     .catch( err => {
@@ -30,11 +29,10 @@ router.get('/battle-days', (req, res) => {
 //Subscribe a new user on the DB
 router.post('/', (req, res) => {
   const newTag = req.body.newtag
-  console.log(newTag)
   controlSubscribeNewUser(newTag)
     .then( data => {
-      const message = 'The user has been subscribed, supuestamente!';
-      response.success(req, res, data, message, 201);
+      console.log(data.message);
+      response.success(req, res, data.dataReturned, data.message, 201);
     })
     .catch( err => {
       const message = 'User not found or user has not played yet.';

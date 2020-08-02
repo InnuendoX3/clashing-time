@@ -3,8 +3,6 @@ const {dbGetAllDays, dbGetLastBattleCount, dbSaveBattleDay} = require('./db');
 
 async function getAllDays() {
   const allDaysData = await dbGetAllDays();
-  console.log('allDaysData es:')
-  console.log(allDaysData)
   return allDaysData;
 }
 
@@ -21,7 +19,8 @@ async function setBattleDay(dayInfo) {
     user: dayInfo.user,
     yesterdayBattleCount: dayInfo.yesterdayBattleCount,
     currentBattleCount: dayInfo.currentBattleCount,
-    date: Date.now(),
+    battlesQty: dayInfo.currentBattleCount - dayInfo.yesterdayBattleCount,
+    date: Date(Date.now()),
   }
 
   return await dbSaveBattleDay(toSaveOnBattleDay);

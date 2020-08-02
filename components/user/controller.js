@@ -9,7 +9,6 @@ function getUserByTag(userTag) {
     tag: userTag,
   }
   return new Promise((resolve, reject) => {
-    console.log('usersito', usersito)
     resolve(usersito)
   })
 }
@@ -19,7 +18,8 @@ async function getUsersTagIDList() {
   const usersTagIDList = userList.map( user => {
     return {
       id: user._id,
-      tag: user.tag
+      tag: user.tag,
+      name: user.name
     }
   })
   return usersTagIDList;
@@ -32,22 +32,27 @@ async function subscribeNewUser(userTag) {
   const toSaveOnUser = {
     tag: dataReturned.tag,
     name: dataReturned.name,
-    subscribed: Date.now(),
+    subscribed: Date(Date.now()),
   }
   const userSaved = await dbSaveUser(toSaveOnUser)
-  console.log('userSaved', userSaved);
   
   /** Set first currentBattleDay */
   const toSaveOnBattleDay = {
     user: userSaved._id,
     yesterdayBattleCount: 0,
     currentBattleCount: dataReturned.battleCount,
-    date: Date.now(),
+    date: Date(Date.now()),
   }
   const battleDaySaved = await dbSaveBattleDay(toSaveOnBattleDay)
-  console.log('battleDaySaved', battleDaySaved)
+  
+  // Response
+  const message = `[Subscribed] ${userSaved.tag} - ${userSaved.name} : ${battleDaySaved.currentBattleCount} battles.`;
+  const response = {
+    dataReturned,
+    message,
+  }
 
-  return dataReturned;
+  return response;
 }
 
 module.exports = {

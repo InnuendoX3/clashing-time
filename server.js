@@ -4,7 +4,9 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const dbConnect = require('./db');
 const allRoutes = require('./network/all-routes');
-const dailyData = require('./resources/daily-data');
+const startSchedule = require('./resources/start-schedule');
+
+// const dailyData = require('./resources/daily-data');
 
 const app = express();
 const port = process.env.PORT || 5051;
@@ -21,7 +23,8 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));
 
 allRoutes(app);
 
-dailyData()
+startSchedule();
+// dailyData()
 
 /* const playerTag = '800000000';
 app.get('/', (req, res) => {

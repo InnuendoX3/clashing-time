@@ -8,6 +8,7 @@ const daySchema = mongoose.Schema({
   },
   yesterdayBattleCount: Number,
   currentBattleCount: Number,
+  battlesQty: Number,
   date: Date,
 });
 

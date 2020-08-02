@@ -3,7 +3,6 @@ const { controlgetLastBattleCount, controlSetBattleDay } = require('../component
 const { fixTagGetUserInfo } = require('./control-functions');
 
 async function dailyData() {
-  console.log('Daily data function activated.')
   const usersList = await controlGetUsersTagIDList();
 
   usersList.map( async user => {
@@ -19,11 +18,9 @@ async function dailyData() {
       currentBattleCount: userBattleDay.battleCount,      
     };
 
-    console.log('newBattleDayToSave', newBattleDayToSave)
-
     // Save a new battleDay
     controlSetBattleDay(newBattleDayToSave)
-      .then( data => console.log(data))
+      .then( data => console.log(`[Saved] ${user.tag} - ${user.name} : ${data.battlesQty} battles. - ${data.date}`))
       .catch( err => console.error(err))
   })
 
