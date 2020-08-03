@@ -1,10 +1,11 @@
 const schedule = require('node-schedule');
 
 const dailyData = require('./daily-data');
+const scheduleFormat = process.env.DAILY_REPORT_SCHEDULE;
 
 function startSchedule() {
-  console.log('dailyData() will be executed at 23:59:50');
-  schedule.scheduleJob('50 59 23 * * *', () => {
+  console.log('dailyData() will be executed at: ', scheduleFormat);
+  schedule.scheduleJob(scheduleFormat, () => {
     dailyData();
   })
 }
@@ -12,7 +13,7 @@ function startSchedule() {
 module.exports = startSchedule;
 
 
-/*    scheduleJob first parameter format
+/*   scheduleFormat
 
 *    *    *    *    *    *
 ┬    ┬    ┬    ┬    ┬    ┬
