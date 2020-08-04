@@ -27,6 +27,8 @@ async function getUsersTagIDList() {
 
 async function subscribeNewUser(userTag) {
   const dataReturned = await fixTagGetUserInfo(userTag)
+
+  // TODO: Check if user has been already subscribed
   
   /** Save first time user */
   const toSaveOnUser = {

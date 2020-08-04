@@ -31,7 +31,6 @@ function getRightUrlOptions(usingProxy, playerTag) {
      * as it says on https://devcenter.heroku.com/articles/ipburger
      */
     const proxyUrl = url.parse(process.env.FIXIE_URL) //Add it here as env ???
-    console.log('proxyUrl', proxyUrl)
     const viaProxyOptions = {
       host: proxyUrl.hostname,
       port: proxyUrl.port,
