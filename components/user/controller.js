@@ -1,6 +1,6 @@
 const { getUserInfoFromAPI, fixTag } = require('../../resources/control-functions');
-const { dbSaveUser, dbGetUsers, dbSearchUser} = require('./db');
-const { dbSaveBattleDay } = require('../day/db');
+const { dbSaveUser, dbGetUsers, dbSearchUser, dbGetUserInfo} = require('./db');
+const { dbSaveBattleDay, dbGetUserBattles } = require('../day/db');
 
 // Search user on DataBase
 async function searchUser(nameOrTag, searchBy) {
@@ -15,11 +15,38 @@ async function searchUser(nameOrTag, searchBy) {
     }
   } else {
     query = {
-      name: nameOrTag,
+      // Insensitive case for name search
+      name: new RegExp(nameOrTag, 'i'),
     }
   }
-
   return dbSearchUser(query)
+}
+
+async function getUserBattles(tagNoHash) {
+  const hash = '#'
+  const tag = hash.concat(tagNoHash);
+  const userInfoFromDb = await dbGetUserInfo(tag);
+  const userBattlesFromDb = await dbGetUserBattles(userInfoFromDb._id);
+  const userInfoToSend = {
+    tag: userInfoFromDb.tag,
+    name: userInfoFromDb.name,
+    subscribed: userInfoFromDb.subscribed,
+  }
+  const userBattlesToSend = userBattlesFromDb.map( battleDay => {
+    const dayRelevantInfo = {
+      yesterdayBattleCount: battleDay.yesterdayBattleCount,
+      currentBattleCount: battleDay.currentBattleCount,
+      battlesQty: battleDay.battlesQty,
+      date: battleDay.date,
+    }
+    return dayRelevantInfo;
+  })
+  const totalUserInfo = {
+    userInfo: userInfoToSend,
+    userBattles: userBattlesToSend,
+  }
+  console.log(totalUserInfo)
+  return totalUserInfo;
 }
 
 async function getUsersTagIDList() {
@@ -68,6 +95,7 @@ async function subscribeNewUser(userTag) {
 
 module.exports = {
   controlSearchUser: searchUser,
+  controlGetUserBattles: getUserBattles,
   controlGetUsersTagIDList: getUsersTagIDList,
   controlSubscribeNewUser: subscribeNewUser,
 }

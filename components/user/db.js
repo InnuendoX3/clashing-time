@@ -1,15 +1,10 @@
 const UserModel = require('./model');
 
-async function searchUser(query) {
-  console.log('query', query)
-  const searchResults = await UserModel.find(query);
-  //console.log('searchResults', searchResults)
-  return searchResults;
-}
-
-async function saveUser(userData) {
-  const newUser = new UserModel(userData);
-  return await newUser.save();
+async function getUserInfo(tag) {
+  const query = {"tag": tag};
+  const response = await UserModel.findOne(query);
+  console.log('response', response)
+  return response;
 }
 
 async function getUsers() {
@@ -17,9 +12,20 @@ async function getUsers() {
   return users;
 }
 
+async function saveUser(userData) {
+  const newUser = new UserModel(userData);
+  return await newUser.save();
+}
+
+async function searchUser(query) {
+  const searchResults = await UserModel.find(query);
+  return searchResults;
+}
+
 
 module.exports = {
-  dbSearchUser: searchUser,
-  dbSaveUser: saveUser,
+  dbGetUserInfo: getUserInfo,
   dbGetUsers: getUsers,
+  dbSaveUser: saveUser,
+  dbSearchUser: searchUser,
 }

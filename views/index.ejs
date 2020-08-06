@@ -5,7 +5,11 @@
     <h3>No users found with that name or tag</h3>
   <% } else{ %>  
     <% for (const user of users) { %>
-        <h3> <%= user.tag %> </h3>
+      <% const tagNoHash = user.tag.slice(1) %> 
+      <div>
+        <a href="/user/<%= tagNoHash %>"> <%= user.name %> </a>
+        <span> <%= user.tag %>  </span>
+      </div>
     <% } %>
   <% } %>
 <% } %>

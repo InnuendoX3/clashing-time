@@ -43,7 +43,7 @@ function makeRequestByPlayer(playerTag) {
       let noRealInfo = {
         tag: '#8CRRY8J02',
         name: 'Gohan',
-        battleCount: '13935',
+        battleCount: '14002',
       };
       resolve(noRealInfo);
     })

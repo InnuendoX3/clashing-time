@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../network/response');
 
-const {controlSubscribeNewUser, controlSearchUser} = require('./controller');
+const {controlSubscribeNewUser, controlSearchUser, controlGetUserBattles} = require('./controller');
 
 router.get('/', (req, res) => {
   const nameOrTag = req.query.nametag;
@@ -10,29 +10,27 @@ router.get('/', (req, res) => {
   controlSearchUser(nameOrTag, searchBy)
     .then(data => {
       const dataObject = { users: data};
-      console.log('dataObject', dataObject, typeof dataObject);
       res.render('index.ejs', dataObject);
-      //res.send(data)
     })
     .catch( err => {
       console.log(err);
-      //res.render('user.ejs', err)
     })
     
   //res.send('Aqui se pregunta suscribir un tag ó consultar un tag');
 })
 
-
-router.get('/battle-days', (req, res) => {
-  //TODO: devolver cantidad de batallas por dia de cierto usuario
-  res.render('battledays.ejs');
+// Returns user battles info
+router.get('/:tag', (req, res) => {
+  controlGetUserBattles(req.params.tag)
+    .then( data => {
+      res.render('user.ejs', data)
+    })
+    .catch( err => {
+      console.log(err);
+    })
 })
-/* router.get('/:id', (req, res) => {
-  //TODO: devolver cantidad de batallas por dia de cierto usuario
-  res.send('Mostrando resultados del usuario');
-}) */
 
-//Subscribe a new user on the DB
+// Subscribe a new user on the DB
 router.post('/', (req, res) => {
   const newTag = req.body.newtag
   controlSubscribeNewUser(newTag)

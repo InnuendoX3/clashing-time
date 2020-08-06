@@ -1,3 +1,11 @@
-<h2> Devuelve users dependiendo del tag</h2>
-<p> Tag: <%= tag %> </p>
-<p> Name: <%= name %> </p>
+<h3> <%= userInfo.name %>  </h3>
+<span> <%= userInfo.tag %> </span>
+<span> Susbcribed since <%= userInfo.subscribed %>  </span>
+<p> Total Battles: <%= userBattles[0].currentBattleCount %> </p>
+
+<% for(const battle of userBattles) {%>
+  <div>
+    <p>Date: <%= battle.date %> </p>
+    <p>Battles: <%= battle.battlesQty %></p>
+  </div>  
+<% } %> 
