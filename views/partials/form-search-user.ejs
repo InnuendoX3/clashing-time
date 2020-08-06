@@ -1,0 +1,16 @@
+<h2>Get battle-days</h2>
+
+<form action="/user" method="GET">
+
+  <label for="nametag">Search</label>
+  <input type="text" name="nametag" placeholder="Username or Tag" required>
+
+  <div>
+    <input type="radio" name="search_by" id="" value="name" checked="checked">
+    <label for="name">Username</label>
+
+    <input type="radio" name="search_by" id="" value="tag">
+    <label for="tag">Tag</label>
+  </div>
+  <button type="submit">Send</button>
+</form>

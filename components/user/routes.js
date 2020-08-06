@@ -2,15 +2,21 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../network/response');
 
-const {controlSubscribeNewUser, controlGetUserByTag} = require('./controller');
+const {controlSubscribeNewUser, controlSearchUser} = require('./controller');
 
 router.get('/', (req, res) => {
-  controlGetUserByTag(req.query.tag)
+  const nameOrTag = req.query.nametag;
+  const searchBy = req.query.search_by;
+  controlSearchUser(nameOrTag, searchBy)
     .then(data => {
-      res.render('user.ejs', data)
+      const dataObject = { users: data};
+      console.log('dataObject', dataObject, typeof dataObject);
+      res.render('index.ejs', dataObject);
+      //res.send(data)
     })
     .catch( err => {
-      res.render('user.ejs', err)
+      console.log(err);
+      //res.render('user.ejs', err)
     })
     
   //res.send('Aqui se pregunta suscribir un tag ó consultar un tag');

@@ -1,6 +1,6 @@
 const { controlGetUsersTagIDList }  = require('../components/user/controller');
 const { controlgetLastBattleCount, controlSetBattleDay } = require('../components/day/controller');
-const { fixTagGetUserInfo } = require('./control-functions');
+const { getUserInfoFromAPI } = require('./control-functions');
 
 async function dailyData() {
   const usersList = await controlGetUsersTagIDList();
@@ -10,7 +10,7 @@ async function dailyData() {
     const lastBattleCount = await controlgetLastBattleCount(user.id);
     
     // Getting current data from API
-    const userBattleDay = await fixTagGetUserInfo(user.tag);
+    const userBattleDay = await getUserInfoFromAPI(user.tag);
 
     const newBattleDayToSave = {
       user: user.id,

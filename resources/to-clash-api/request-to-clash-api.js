@@ -41,9 +41,9 @@ function makeRequestByPlayer(playerTag) {
 
     return new Promise((resolve, reject) => {
       let noRealInfo = {
-        tag: '#n0n3',
-        name: 'Hardcoded Object',
-        battleCount: 'Preventing lots of requests when testing',
+        tag: '#8CRRY8J02',
+        name: 'Gohan',
+        battleCount: '13935',
       };
       resolve(noRealInfo);
     })

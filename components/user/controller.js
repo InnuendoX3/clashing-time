@@ -1,16 +1,25 @@
-const { fixTagGetUserInfo } = require('../../resources/control-functions');
-const { dbSaveUser, dbGetUsers } = require('./db');
+const { getUserInfoFromAPI, fixTag } = require('../../resources/control-functions');
+const { dbSaveUser, dbGetUsers, dbSearchUser} = require('./db');
 const { dbSaveBattleDay } = require('../day/db');
 
-function getUserByTag(userTag) {
-  const usersito = {
-    nombre: 'Testeando',
-    apellido: 'Rendering',
-    tag: userTag,
+// Search user on DataBase
+async function searchUser(nameOrTag, searchBy) {
+  console.log(nameOrTag, searchBy);
+  let query = {};
+
+  if(searchBy === 'tag') {
+    const preTag = '#';
+    const tagFixed = preTag.concat(fixTag(nameOrTag));
+    query = {
+      tag: tagFixed,
+    }
+  } else {
+    query = {
+      name: nameOrTag,
+    }
   }
-  return new Promise((resolve, reject) => {
-    resolve(usersito)
-  })
+
+  return dbSearchUser(query)
 }
 
 async function getUsersTagIDList() {
@@ -26,7 +35,7 @@ async function getUsersTagIDList() {
 }
 
 async function subscribeNewUser(userTag) {
-  const dataReturned = await fixTagGetUserInfo(userTag)
+  const dataReturned = await getUserInfoFromAPI(userTag)
 
   // TODO: Check if user has been already subscribed
   
@@ -58,7 +67,7 @@ async function subscribeNewUser(userTag) {
 }
 
 module.exports = {
-  controlGetUserByTag: getUserByTag,
+  controlSearchUser: searchUser,
   controlGetUsersTagIDList: getUsersTagIDList,
   controlSubscribeNewUser: subscribeNewUser,
 }

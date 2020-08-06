@@ -1,20 +1,12 @@
 const getPlayerInfo = require("./to-clash-api/get-player-info");
-//tag = "#8cRRY8J02"
 
-/** 
- * Functions to export 
-*/
-
-async function fixTagGetUserInfo(tag) {
+// Fix tag and request user info from Clash API
+async function getUserInfoFromAPI(tag) {
   const userTag = fixTag(tag);
   const newUserInfo = await getPlayerInfo(userTag);
   return newUserInfo;
 }
 
-
-/** 
- * Internal functions  
-*/
 
 // Removes the initial #. Set uppercase
 function fixTag(tag) {
@@ -25,5 +17,6 @@ function fixTag(tag) {
 }
 
 module.exports = {
-  fixTagGetUserInfo,
+  getUserInfoFromAPI,
+  fixTag,
 }

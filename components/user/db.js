@@ -1,9 +1,15 @@
 const UserModel = require('./model');
 
+async function searchUser(query) {
+  console.log('query', query)
+  const searchResults = await UserModel.find(query);
+  //console.log('searchResults', searchResults)
+  return searchResults;
+}
 
-function saveUser(userData) {
+async function saveUser(userData) {
   const newUser = new UserModel(userData);
-  return newUser.save();
+  return await newUser.save();
 }
 
 async function getUsers() {
@@ -13,6 +19,7 @@ async function getUsers() {
 
 
 module.exports = {
+  dbSearchUser: searchUser,
   dbSaveUser: saveUser,
   dbGetUsers: getUsers,
 }
