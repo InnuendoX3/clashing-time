@@ -1,11 +1,28 @@
-<h3> <%= userInfo.name %>  </h3>
-<span> <%= userInfo.tag %> </span>
-<span> Susbcribed since <%= userInfo.subscribed %>  </span>
-<p> Total Battles: <%= userBattles[0].currentBattleCount %> </p>
+<div class="card text-white bg-primary mb-3">
+  <div class="card-header"><%= userInfo.tag %></div>
+  <div class="card-body">
+    <h4 class="card-title"><%= userInfo.name %></h4>
+    <p class="card-text">Total Battles: <%= userBattles[0].currentBattleCount %></p>
+    <p class="card-text">Total Time:</p>
+  </div>
+  <div class="card-footer text-muted">
+    Susbcribed since <%= userInfo.subscribed %>
+  </div>
+</div>
 
-<% for(const battle of userBattles) {%>
-  <div>
-    <p>Date: <%= battle.date %> </p>
-    <p>Battles: <%= battle.battlesQty %></p>
-  </div>  
-<% } %> 
+<table class="table">
+  <thead>
+    <th scope="col">Date</th>
+    <th scope="col">Battles</th>
+    <th scope="col">Time</th>
+  </thead>
+  <tbody>
+    <% for(const battle of userBattles) {%>
+      <tr>
+        <td><%= battle.date %></td>
+        <td><%= battle.battlesQty %></td>
+        <td>Aqui el tiempo</td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
