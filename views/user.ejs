@@ -2,8 +2,8 @@
   <div class="card-header"><%= userInfo.tag %></div>
   <div class="card-body">
     <h4 class="card-title"><%= userInfo.name %></h4>
-    <p class="card-text">Total Battles: <%= userBattles[0].currentBattleCount %></p>
-    <p class="card-text">Total Time:</p>
+    <p class="card-text">Total Battles: <%= userInfo.totalBattles %></p>
+    <p class="card-text">Total Time: <%= userInfo.totalTime %></p>
   </div>
   <div class="card-footer text-muted">
     Susbcribed since <%= userInfo.subscribed %>
@@ -21,7 +21,7 @@
       <tr>
         <td><%= battle.date %></td>
         <td><%= battle.battlesQty %></td>
-        <td>Aqui el tiempo</td>
+        <td> <%= battle.time %></td>
       </tr>
     <% } %>
   </tbody>

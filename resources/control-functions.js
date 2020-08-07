@@ -16,7 +16,17 @@ function fixTag(tag) {
   return correctedTag;
 }
 
+
+function parseBattlesToHours(battles) {
+  const minutesPerBattle = 3;
+  const totalMinutes = battles * minutesPerBattle;
+  const hours = totalMinutes / 60
+  const hoursString = `${hours} hours`
+  return hoursString;
+}
+
 module.exports = {
   getUserInfoFromAPI,
   fixTag,
+  parseBattlesToHours
 }
