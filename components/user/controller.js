@@ -29,14 +29,14 @@ async function getUserBattles(tagNoHash) {
   const userInfoToSend = {
     tag: userInfoFromDb.tag,
     name: userInfoFromDb.name,
-    subscribed: userInfoFromDb.subscribed,
+    subscribed: userInfoFromDb.subscribed.toDateString(),
   }
   const userBattlesToSend = userBattlesFromDb.map( battleDay => {
     const dayRelevantInfo = {
       yesterdayBattleCount: battleDay.yesterdayBattleCount,
       currentBattleCount: battleDay.currentBattleCount,
       battlesQty: battleDay.battlesQty,
-      date: battleDay.date,
+      date: battleDay.date.toDateString(),
     }
     return dayRelevantInfo;
   })
