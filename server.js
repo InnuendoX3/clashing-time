@@ -23,23 +23,8 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));
 
 allRoutes(app);
 
-// startSchedule();
+startSchedule();
 // dailyData()
-
-/* const playerTag = '800000000';
-app.get('/', (req, res) => {
-  dailyData(playerTag)
-    .then( dataFromClash => {
-      //controlDataAndSave(dataFromClash) // TODO
-      res.send(dataFromClash);
-    })
-    .catch( error => {
-      console.log(error)
-      res.send(error);
-    })
-  
-}) */
-
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

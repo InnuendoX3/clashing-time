@@ -3,7 +3,6 @@ const UserModel = require('./model');
 async function getUserInfo(tag) {
   const query = {"tag": tag};
   const response = await UserModel.findOne(query);
-  console.log('response', response)
   return response;
 }
 

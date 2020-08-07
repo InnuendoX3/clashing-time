@@ -4,7 +4,6 @@ const { dbSaveBattleDay, dbGetUserBattles } = require('../day/db');
 
 // Search user on DataBase
 async function searchUser(nameOrTag, searchBy) {
-  console.log(nameOrTag, searchBy);
   let query = {};
 
   if(searchBy === 'tag') {
@@ -45,7 +44,7 @@ async function getUserBattles(tagNoHash) {
     userInfo: userInfoToSend,
     userBattles: userBattlesToSend,
   }
-  console.log(totalUserInfo)
+  //console.log(totalUserInfo)
   return totalUserInfo;
 }
 
