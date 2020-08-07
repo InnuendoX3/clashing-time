@@ -16,7 +16,7 @@ async function getLastBattleCount(userId) {
 
 async function getUserBattles(userId) {
   const responseFromDb = await DayModel
-    .find({"user": userId})
+    .find( {$and: [{ "user": userId }, { "battlesQty": { $exists: true }}]})
     .sort({"date": -1})
   return responseFromDb;
 }

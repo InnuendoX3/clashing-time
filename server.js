@@ -23,7 +23,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));
 
 allRoutes(app);
 
-startSchedule();
+// startSchedule();
 // dailyData()
 
 app.listen(port, () => {
