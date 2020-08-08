@@ -6,7 +6,7 @@ const dbConnect = require('./db');
 const allRoutes = require('./network/all-routes');
 const startSchedule = require('./resources/start-schedule');
 
-const dailyData = require('./resources/daily-data');
+// const dailyData = require('./resources/daily-data');
 
 const app = express();
 const port = process.env.PORT || 5051;
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));
 
 allRoutes(app);
 
-// startSchedule();
+startSchedule();
 // dailyData()
 
 app.listen(port, () => {
