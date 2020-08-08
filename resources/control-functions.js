@@ -18,6 +18,7 @@ function fixTag(tag) {
 
 
 function parseBattlesToHours(battles) {
+  if ( isNaN(battles) ) return 'Subscription day.' // TODO: Do something better
   const minutesPerBattle = 3;
   const totalMinutes = battles * minutesPerBattle;
   const hours = totalMinutes / 60
