@@ -47,7 +47,6 @@ async function getUserBattles(tagNoHash) {
     userInfo: userInfoToSend,
     userBattles: userBattlesToSend,
   }
-  //console.log(totalUserInfo)
   return totalUserInfo;
 }
 

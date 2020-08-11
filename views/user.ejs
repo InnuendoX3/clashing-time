@@ -1,27 +1,33 @@
-<div class="card text-white bg-primary mb-3">
-  <div class="card-header"><%= userInfo.tag %></div>
-  <div class="card-body">
-    <h4 class="card-title"><%= userInfo.name %></h4>
-    <p class="card-text">Total Battles: <%= userInfo.totalBattles %></p>
-    <p class="card-text">Total Time: <%= userInfo.totalTime %></p>
-  </div>
-  <div class="card-footer text-muted">
-    Susbcribed since <%= userInfo.subscribed %>
+<%- include('partials/navbar.ejs') %>
+
+<div class="row justify-content-md-center my-4">
+  <div class="col col-md-6">
+    <div class="card border-primary mb-3 text-center">
+      <div class="card-header"><%= userInfo.tag %></div>
+      <div class="card-body">
+        <h4 class="card-title text-white"><%= userInfo.name %></h4>
+        <p class="card-text">Total Battles: <span class="text-white"><%= userInfo.totalBattles %></span> </p>
+        <p class="card-text">Total Time: <span class="text-white"><%= userInfo.totalTime %></span> </p>
+      </div>
+      <div class="card-footer text-muted">
+        Susbcribed since <%= userInfo.subscribed %>
+      </div>
+    </div>
   </div>
 </div>
 
 <table class="table">
   <thead>
-    <th scope="col">Date</th>
-    <th scope="col">Battles</th>
-    <th scope="col">Time</th>
+    <th scope="col" class="text-center">Date</th>
+    <th scope="col" class="text-center">Battles</th>
+    <th scope="col" class="text-center">Time</th>
   </thead>
   <tbody>
     <% for(const battle of userBattles) {%>
       <tr>
-        <td><%= battle.date %></td>
-        <td><%= battle.battlesQty %></td>
-        <td> <%= battle.time %></td>
+        <td class="text-center"><%= battle.date %></td>
+        <td class="text-center"><%= battle.battlesQty %></td>
+        <td class="text-center"> <%= battle.time %></td>
       </tr>
     <% } %>
   </tbody>
