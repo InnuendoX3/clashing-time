@@ -1,8 +1,16 @@
-<h2>Subscribe new user</h2>
+<div class="container my-4">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-5">
 
-<form action="/user" method="POST">
-  <label for="newtag">Enter User Tag</label>
-  <input type="text" name="newtag" placeholder="Tag for subscribe">
+      <h2 class="text-center">Subscribe new user</h2>
 
-  <button type="submit">Subcribe</button>
-</form>
+      <form action="/user" method="POST">
+        <div class="form-group">
+          <input type="text" name="newtag" placeholder="Tag for subscribe" required class="form-control">
+        </div>
+
+        <button type="submit" class="form-control">Subcribe</button>
+      </form>
+    </div>
+  </div>
+</div>
