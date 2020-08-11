@@ -1,4 +1,4 @@
-const { getUserInfoFromAPI, fixTag, parseBattlesToHours } = require('../../resources/control-functions');
+const { getUserInfoFromAPI, fixTag, parseBattlesToTime } = require('../../resources/control-functions');
 const { dbSaveUser, dbGetUsers, dbSearchUser, dbGetUserInfo} = require('./db');
 const { dbSaveBattleDay, dbGetUserBattles } = require('../day/db');
 
@@ -31,14 +31,14 @@ async function getUserBattles(tagNoHash) {
     name: userInfoFromDb.name,
     subscribed: userInfoFromDb.subscribed.toDateString(),
     totalBattles: userBattlesFromDb[0].currentBattleCount,
-    totalTime: parseBattlesToHours(userBattlesFromDb[0].currentBattleCount),
+    totalTime: parseBattlesToTime(userBattlesFromDb[0].currentBattleCount),
   }
   const userBattlesToSend = userBattlesFromDb.map( battleDay => {
     const dayRelevantInfo = {
       yesterdayBattleCount: battleDay.yesterdayBattleCount,
       currentBattleCount: battleDay.currentBattleCount,
       battlesQty: battleDay.battlesQty,
-      time: parseBattlesToHours(battleDay.battlesQty),
+      time: parseBattlesToTime(battleDay.battlesQty),
       date: battleDay.date.toDateString(),
     }
     return dayRelevantInfo;
