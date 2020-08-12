@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
   const searchBy = req.query.search_by;
   controlSearchUser(nameOrTag, searchBy)
     .then(data => {
-      const dataObject = { users: data};
+      // users is asked on results as object for showing results
+      const dataObject = { users: data };
       res.render('index.ejs', dataObject);
     })
     .catch( err => {
@@ -35,8 +36,8 @@ router.post('/', (req, res) => {
   const newTag = req.body.newtag
   controlSubscribeNewUser(newTag)
     .then( data => {
-      console.log(data.message);
-      response.success(req, res, data.dataReturned, data.message, 201);
+      console.log(data.messageToLog);
+      res.render('subscribe.ejs', data )
     })
     .catch( err => {
       const message = 'User not found or user has not played yet.';

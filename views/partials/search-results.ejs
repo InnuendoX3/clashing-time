@@ -1,6 +1,6 @@
 <div class="container">
   <hr>
-  <% if (typeof users === 'object') { %>
+  <% if (typeof users !== 'undefined') { %>
     <% if ( users.length < 1) { %>
       <p class="text-center">No users found with that username or tag</p>
     <% } else{ %>

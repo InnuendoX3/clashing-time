@@ -1,12 +1,12 @@
 const { getUserInfoFromAPI, fixTag, parseBattlesToTime } = require('../../resources/control-functions');
-const { dbSaveUser, dbGetUsers, dbSearchUser, dbGetUserInfo} = require('./db');
+const { dbSaveUser, dbGetUsers, dbSearchUser, dbGetUserInfo } = require('./db');
 const { dbSaveBattleDay, dbGetUserBattles } = require('../day/db');
 
 // Search user on DataBase
 async function searchUser(nameOrTag, searchBy) {
   let query = {};
 
-  if(searchBy === 'tag') {
+  if (searchBy === 'tag') {
     const preTag = '#';
     const tagFixed = preTag.concat(fixTag(nameOrTag));
     query = {
@@ -33,7 +33,7 @@ async function getUserBattles(tagNoHash) {
     totalBattles: userBattlesFromDb[0].currentBattleCount,
     totalTime: parseBattlesToTime(userBattlesFromDb[0].currentBattleCount),
   }
-  const userBattlesToSend = userBattlesFromDb.map( battleDay => {
+  const userBattlesToSend = userBattlesFromDb.map(battleDay => {
     const dayRelevantInfo = {
       yesterdayBattleCount: battleDay.yesterdayBattleCount,
       currentBattleCount: battleDay.currentBattleCount,
@@ -52,7 +52,7 @@ async function getUserBattles(tagNoHash) {
 
 async function getUsersTagIDList() {
   const userList = await dbGetUsers()
-  const usersTagIDList = userList.map( user => {
+  const usersTagIDList = userList.map(user => {
     return {
       id: user._id,
       tag: user.tag,
@@ -63,35 +63,67 @@ async function getUsersTagIDList() {
 }
 
 async function subscribeNewUser(userTag) {
-  const dataReturned = await getUserInfoFromAPI(userTag)
 
-  // TODO: Check if user has been already subscribed
-  
-  /** Save first time user */
-  const toSaveOnUser = {
-    tag: dataReturned.tag,
-    name: dataReturned.name,
-    subscribed: Date(Date.now()),
-  }
-  const userSaved = await dbSaveUser(toSaveOnUser)
-  
-  /** Set first currentBattleDay */
-  const toSaveOnBattleDay = {
-    user: userSaved._id,
-    yesterdayBattleCount: 0,
-    currentBattleCount: dataReturned.battleCount,
-    date: Date(Date.now()),
-  }
-  const battleDaySaved = await dbSaveBattleDay(toSaveOnBattleDay)
-  
-  // Response
-  const message = `[Subscribed] ${userSaved.tag} - ${userSaved.name} : ${battleDaySaved.currentBattleCount} battles.`;
-  const response = {
-    dataReturned,
-    message,
+  /* Check on DB if tag is already subscribed */
+  const preTag = '#';
+  const tagFixed = preTag.concat(fixTag(userTag));
+  query = {
+    tag: tagFixed,
   }
 
-  return response;
+  if ((await dbSearchUser(query)).length > 0) {
+    const errorMessage = `The tag ${tagFixed} is already subscribed`;
+    const messageToLog = `[Not subscribed] The tag ${tagFixed} is already subscribed`;
+    return {
+      errorMessage,
+      messageToLog,
+    };
+  }
+
+  try {
+    const dataReturned = await getUserInfoFromAPI(userTag)
+
+    /** Save first time user */
+    const toSaveOnUser = {
+      tag: dataReturned.tag,
+      name: dataReturned.name,
+      subscribed: Date(Date.now()),
+    }
+    const userSaved = await dbSaveUser(toSaveOnUser)
+
+    /** Set first currentBattleDay */
+    const toSaveOnBattleDay = {
+      user: userSaved._id,
+      yesterdayBattleCount: 0,
+      currentBattleCount: dataReturned.battleCount,
+      date: Date(Date.now()),
+    }
+    const battleDaySaved = await dbSaveBattleDay(toSaveOnBattleDay)
+
+    // Response
+    const message = `[Subscribed] ${userSaved.tag} - ${userSaved.name} : ${battleDaySaved.currentBattleCount} battles.`;
+    const response = {
+      messageToLog: message,
+      userSubscribed: {
+        tag: userSaved.tag,
+        name: userSaved.name,
+        battleCount: battleDaySaved.currentBattleCount,
+        totalTime: parseBattlesToTime(battleDaySaved.currentBattleCount),
+      }
+    }
+
+    return response;
+    
+  } catch (err) {
+    // Can happen the tag does not exist on Clash API
+    const errorMessage = `Cannot subscribe. Tag ${userTag} is not valid or user has not played yet.`;
+    const messageToLog = `[Not subscribed] Tag entered ${userTag} is not valid or user has not played yet. Tagfixed: ${tagFixed}`;
+    return {
+      errorMessage,
+      messageToLog,
+    };
+  }
+
 }
 
 module.exports = {

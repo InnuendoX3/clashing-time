@@ -1,3 +1,22 @@
 <%- include('partials/navbar.ejs') %>
 
 <%- include('partials/form-subscribe-user.ejs')  %> 
+
+<!-- Info of subscription -->
+<% if (typeof errorMessage !== 'undefined') { %>
+  <p class="text-center"><%= errorMessage %></p>
+<% } %>  
+
+<% if (typeof userSubscribed !== 'undefined') { %> 
+
+  <div class="container text-center">
+    <h5>Hi <span><%= userSubscribed.name %></span>!</h5>
+    <p>Your tag <span class="text-white"><%= userSubscribed.tag %></span> has been subscribed successfully.</p>
+    <p>
+      Until now you have played <span class="text-white"><%= userSubscribed.battleCount %></span> battles and 
+      this is your minimum time spent playing Clash Royale:
+    </p>
+    <h6 class="text-white"><%= userSubscribed.totalTime %></h6>
+  </div>
+
+<% } %> 
