@@ -8,16 +8,21 @@ router.get('/', (req, res) => {
   const nameOrTag = req.query.nametag;
   const searchBy = req.query.search_by;
   controlSearchUser(nameOrTag, searchBy)
-    .then(data => {
-      // users is asked on results as object for showing results
-      const dataObject = { users: data };
-      res.render('index.ejs', dataObject);
-    })
-    .catch( err => {
-      console.log(err);
-    })
-    
+  .then(data => {
+    // users is asked on results as object for showing results
+    const dataObject = { users: data };
+    res.render('index.ejs', dataObject);
+  })
+  .catch( err => {
+    console.log(err);
+  })
+  
   //res.send('Aqui se pregunta suscribir un tag ó consultar un tag');
+})
+
+
+router.get('/subscribe', (req, res) => {
+  res.render('subscribe.ejs');
 })
 
 // Returns user battles info
@@ -45,5 +50,6 @@ router.post('/', (req, res) => {
       response.error(req, res, err, message, 400);
     })
 })
+
 
 module.exports = router;
