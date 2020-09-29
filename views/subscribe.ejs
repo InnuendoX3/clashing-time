@@ -3,34 +3,42 @@
     <div class="col col-md-5">
 
       <h2 class="text-center">Subscribe your tag</h2>
-      <p>When your tag is subscribed this service will save every day at 23:59 (UTC time) the quantity of battles you play daily.</p>
-      <p>
-        If you don't know your Player Tag, open Clash Royale and you can find your unique Player Tag by tapping on your name in your home base. 
-        It will be under your name, starts with a '#'.
-      </p>
-
+      
       <%- include('partials/form-subscribe-user.ejs')  %>
+
+      <!-- Show subscribed tag info -->
+      <% if (typeof userSubscribed !== 'undefined') { %> 
+
+        <div class="container text-center">
+          <h5>Hi <span><%= userSubscribed.name %></span>!</h5>
+          <p>Your tag <span class="text-white"><%= userSubscribed.tag %></span> has been subscribed successfully.</p>
+          <p>
+            Until now you have played <span class="text-white"><%= userSubscribed.battleCount %></span> battles and 
+            this is your minimum time spent playing Clash Royale:
+          </p>
+          <h6 class="text-white"><%= userSubscribed.totalTime %></h6>
+        </div>
+      
+      <!-- Show error as: Already subscribed -->
+      <% } else if (typeof errorMessage !== 'undefined') { %>
+        
+        <p class="text-center"><%= errorMessage %></p>
+      
+      <!-- Show about subscription -->
+      <% } else { %>
+      
+        <p>When your tag is subscribed this service will save every day at 23:59 (UTC time) the quantity of battles you play daily.</p>
+        <p>
+          If you don't know your Player Tag, open Clash Royale and you can find your unique Player Tag by tapping on your name in your home base. 
+          It will be under your name, starts with a '#'.
+        </p>
+        
+      <% } %>
 
     </div>
   </div>
 </div>
 
 
-<!-- Info of subscription -->
-<% if (typeof errorMessage !== 'undefined') { %>
-  <p class="text-center"><%= errorMessage %></p>
-<% } %>  
 
-<% if (typeof userSubscribed !== 'undefined') { %> 
 
-  <div class="container text-center">
-    <h5>Hi <span><%= userSubscribed.name %></span>!</h5>
-    <p>Your tag <span class="text-white"><%= userSubscribed.tag %></span> has been subscribed successfully.</p>
-    <p>
-      Until now you have played <span class="text-white"><%= userSubscribed.battleCount %></span> battles and 
-      this is your minimum time spent playing Clash Royale:
-    </p>
-    <h6 class="text-white"><%= userSubscribed.totalTime %></h6>
-  </div>
-
-<% } %> 
