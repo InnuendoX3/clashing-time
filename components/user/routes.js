@@ -4,6 +4,8 @@ const response = require('../../network/response');
 
 const {controlSubscribeNewUser, controlSearchUser, controlGetUserBattles} = require('./controller');
 
+// Look after a user by name or tag
+// Returns list of matched users.
 router.get('/', (req, res) => {
   const nameOrTag = req.query.nametag;
   const searchBy = req.query.search_by;
@@ -17,15 +19,15 @@ router.get('/', (req, res) => {
     console.log(err);
   })
   
-  //res.send('Aqui se pregunta suscribir un tag ó consultar un tag');
 })
 
-
+// Render the Subscribe page
 router.get('/subscribe', (req, res) => {
   res.render('subscribe.ejs');
 })
 
 // Returns user battles info
+// Rendering it on User page
 router.get('/:tag', (req, res) => {
   controlGetUserBattles(req.params.tag)
     .then( data => {

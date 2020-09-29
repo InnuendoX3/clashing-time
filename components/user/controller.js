@@ -126,9 +126,15 @@ async function subscribeNewUser(userTag) {
 
 }
 
+async function getQtyUsers() {
+  const usersQty = (await dbGetUsers()).length;
+  return usersQty;
+}
+
 module.exports = {
   controlSearchUser: searchUser,
   controlGetUserBattles: getUserBattles,
   controlGetUsersTagIDList: getUsersTagIDList,
   controlSubscribeNewUser: subscribeNewUser,
+  controlGetQtyUsers: getQtyUsers
 }
