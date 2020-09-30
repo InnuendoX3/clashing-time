@@ -7,8 +7,12 @@ router.get('/', (req, res) => {
 })
 
 router.get('/about', async (req, res) => {
-  const totalUsers = await controlGetQtyUsers();
-  res.send(`This app has ${totalUsers} users`);
+  try {
+    const totalUsers = await controlGetQtyUsers();
+    res.render('about.ejs', {totalUsers});
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 module.exports = router;
