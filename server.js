@@ -17,6 +17,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.set('layout', __dirname + '/views/layout');
 
+app.use(express.static(__dirname + '/public'))
 app.use(expressLayouts);
 app.use(express.json()); // Parse JSON bodies / No need body-parser module
 app.use(express.urlencoded({ limit: '10mb', extended: false }));

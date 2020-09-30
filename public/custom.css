@@ -1,0 +1,9 @@
+.clash-font {
+  font-family: 'Bangers', cursive;
+}
+
+@media (max-width: 544px) {  
+  .display-3 {
+    font-size:3rem;
+  }
+}
