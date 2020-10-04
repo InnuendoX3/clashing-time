@@ -7,7 +7,7 @@ const {controlSubscribeNewUser, controlSearchUser, controlGetUserBattles} = requ
 // Look after a user by name or tag
 // Returns list of matched users.
 router.get('/', (req, res) => {
-  const nameOrTag = req.query.nametag;
+  const nameOrTag = req.query.nametag.trim();
   const searchBy = req.query.search_by;
   controlSearchUser(nameOrTag, searchBy)
   .then(data => {
@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
   controlSubscribeNewUser(newTag)
     .then( data => {
       console.log(data.messageToLog);
-      res.render('subscribe.ejs', data )
+      res.render('index.ejs', data )
     })
     .catch( err => {
       const message = 'User not found or user has not played yet.';
