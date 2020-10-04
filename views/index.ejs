@@ -1,12 +1,23 @@
 <div class="jumbotron my-2">
-  <h1 class="text-center display-3 clash-font"> 
+  <h1 class="text-center text-warning display-3 clash-font"> 
     Clashing Time
   </h1>
-  <p class="text-center">Check out how much time you are playing <a href="https://clashroyale.com/blog/news/about-the-game">Clash Royale</a> daily.</p>
+  <p class="text-center text-white">Check out how much time you are playing <a href="https://clashroyale.com/blog/news/about-the-game">Clash Royale</a> daily.</p>
+  <p class="text-center">Subscribe your Clash Royale tag and start keeping track daily of the time you dedicate to the battles.</p>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Subscribe tag -->
+      <%- include('partials/whole-subscribe.ejs') %>
+      <hr>
+    </div>
+    <div class="col-md-6">
+      <!-- Check time -->
+      <%- include('partials/form-search-user.ejs') %>
+      <%- include('partials/search-results.ejs')  %>
+      <hr>
+    </div>
+  </div>
 </div>
 
-<%- include('partials/form-search-user.ejs') %>
-
-<%- include('partials/search-results.ejs')  %> 
-
-<p class="text-center">Not registered yet? <a href="/user/subscribe">Subscribe</a> here!</p>

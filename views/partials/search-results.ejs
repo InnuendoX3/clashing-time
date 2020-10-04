@@ -1,5 +1,4 @@
 <div class="container my-3">
-  <hr>
   <% if (typeof users !== 'undefined') { %>
     <% if ( users.length < 1) { %>
       <p class="text-center">No users found with that username or tag</p>
@@ -9,7 +8,7 @@
         <% for (const user of users) { %>
           <% const tagNoHash = user.tag.slice(1) %> 
 
-            <a href="/user/<%= tagNoHash %>" class="list-group-item list-group-item-action text-center"> 
+            <a href="/user/<%= tagNoHash %>" class="list-group-item list-group-item-action text-center border-warning"> 
               <span> <%= user.name %> </span>
               <small class="text-muted"> <%= user.tag %>  </small>
             </a>
